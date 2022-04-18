@@ -3,7 +3,7 @@
  */
 package com.in10s.controller;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.in10s.pojo.Employee;
+import com.in10s.pojo.Exception;
 import com.in10s.utils.Util;
 
 /**
@@ -46,18 +48,19 @@ public class CICDController {
 	}
 
 	@GetMapping("/find-by-id/{id}")
-	ResponseEntity<List<Employee>> findDetailsById(@PathVariable("id") String id) { 
+	ResponseEntity<Object> findDetailsById(@PathVariable("id") String id) {
 		List<Employee> employeeList = Util.getEmployeeList();
-		List<Employee> empLists = employeeList.stream().filter(emp -> emp.getEmployeeId().equals(id))
+		List<Employee> empLists = employeeList.stream().filter(emp -> emp.getEmployeeId().equals(Integer.parseInt(id)))
 				.collect(Collectors.toList());
+		if (ObjectUtils.isEmpty(empLists)) {
+			return new ResponseEntity<>(new Exception("Sorry! record not found.", "OK", new Date()), HttpStatus.OK);
+		}
 		return new ResponseEntity<>(empLists, HttpStatus.OK);
 	}
 
 	@PostMapping("/find-all")
-	ResponseEntity<List<Employee>> findAll() {  
+	ResponseEntity<List<Employee>> findAll() {
 		return new ResponseEntity<>(Util.getEmployeeList(), HttpStatus.OK);
 	}
-	
-	
 
 }
