@@ -6,6 +6,9 @@ package com.in10s.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.in10s.pojo.Employee;
 
 /**
@@ -13,7 +16,9 @@ import com.in10s.pojo.Employee;
  *
  */
 public class Util {
-	public static List<Employee> getEmployeeList(){
+	static Logger LOG = LogManager.getLogger(Util.class);
+
+	public static List<Employee> getEmployeeList() {
 		List<Employee> employeeList = new ArrayList<Employee>();
 		Employee employee1 = new Employee(1, "ABHISHEK AMAR", "987654321O");
 		Employee employee2 = new Employee(2, "AMAR", "0987654321");
@@ -27,6 +32,7 @@ public class Util {
 		employeeList.add(employee4);
 		employeeList.add(employee5);
 		employeeList.add(employee6);
+		LOG.info(":: employee list contains ::" + employeeList);
 		return employeeList;
 	}
 }
