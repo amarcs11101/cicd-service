@@ -22,9 +22,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.in10s.pojo.Employee;
-import com.in10s.pojo.Exception;
 import com.in10s.pojo.Response;
 import com.in10s.utils.Util;
+
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
  * @author Abhishek Amar
@@ -34,6 +38,13 @@ import com.in10s.utils.Util;
 @RequestMapping("/cicd")
 public class CICDController {
 	static Logger LOG = LogManager.getLogger(CICDController.class);
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "success", content = {
+					@Content(mediaType = "application/json") }),
+			@ApiResponse(responseCode = "400", description = "Invalid payload supplied", content = @Content),
+			@ApiResponse(responseCode = "404", description = "Not found", content = @Content),
+			@ApiResponse(responseCode = "500", description = "Something went wrong") })
+	@Tag(name = "CICD DUMMY DETAILS", description = "IT CONTAINS DUMMY DETAILS FOR CICD API")
 	@GetMapping("/details")
 	ResponseEntity<Map<String, String>> showDetails() {
 		Map<String, String> map = new HashMap<>();
@@ -44,6 +55,13 @@ public class CICDController {
 	}
 
 	/* for dummy save */
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "success", content = {
+					@Content(mediaType = "application/json") }),
+			@ApiResponse(responseCode = "400", description = "Invalid payload supplied", content = @Content),
+			@ApiResponse(responseCode = "404", description = "Not found", content = @Content),
+			@ApiResponse(responseCode = "500", description = "Something went wrong") })
+	@Tag(name = "SAVES DUMMY DETAILS", description = "IT SAVES DUMMY DETAILS FOR CICD API")
 	@PostMapping
 	ResponseEntity<Map<String, String>> saveDetails(@RequestBody Map<String, String> map) {
 		map.put("message", "Saved successfully");
@@ -52,6 +70,13 @@ public class CICDController {
 	}
 
 	@PostMapping("/find-by-id/{id}")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "success", content = {
+					@Content(mediaType = "application/json") }),
+			@ApiResponse(responseCode = "400", description = "Invalid payload supplied", content = @Content),
+			@ApiResponse(responseCode = "404", description = "Not found", content = @Content),
+			@ApiResponse(responseCode = "500", description = "Something went wrong") })
+	@Tag(name = "FINDS DETAILS BY EMPLOYEE ID", description = "IT FINDS THE EMPLOYEE DETAILS BY ID")
 	ResponseEntity<Response> findDetailsById(@PathVariable("id") Integer id) {
 		List<Employee> employeeList = Util.getEmployeeList();
 		List<Employee> empLists = employeeList.stream().filter(emp -> emp.getEmployeeId().equals(id))
@@ -65,6 +90,13 @@ public class CICDController {
 	}
 
 	@PostMapping("/find-all")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "success", content = {
+					@Content(mediaType = "application/json") }),
+			@ApiResponse(responseCode = "400", description = "Invalid payload supplied", content = @Content),
+			@ApiResponse(responseCode = "404", description = "Not found", content = @Content),
+			@ApiResponse(responseCode = "500", description = "Something went wrong") })
+	@Tag(name = "FINDS ALL EMPLOYEE DETAILS", description = "FINDS ALL EMPLOYEE DETAILS")
 	ResponseEntity<List<Employee>> findAll() {
 		return new ResponseEntity<>(Util.getEmployeeList(), HttpStatus.OK);
 	}
