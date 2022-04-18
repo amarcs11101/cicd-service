@@ -32,10 +32,8 @@ public class CICDController {
 	/* for dummy save*/
 	@PostMapping
 	ResponseEntity<Map<String, String>> saveDetails(@RequestBody Map<String,String> map) { 
-		map.put("name", "abhishek");
-		map.put("companyName", "Intense technology pvt. ltd");
-		map.put("subject", "creating the cicd pipeline");
 		map.put("message", "Saved successfully");
+		map.put("status", "OK");
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 }
