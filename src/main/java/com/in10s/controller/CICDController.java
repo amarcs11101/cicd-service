@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.in10s.pojo.Employee;
 import com.in10s.pojo.Exception;
+import com.in10s.pojo.Response;
 import com.in10s.utils.Util;
 
 /**
@@ -30,6 +33,7 @@ import com.in10s.utils.Util;
 @RestController
 @RequestMapping("/cicd")
 public class CICDController {
+	static Logger LOG = LogManager.getLogger(CICDController.class);
 	@GetMapping("/details")
 	ResponseEntity<Map<String, String>> showDetails() {
 		Map<String, String> map = new HashMap<>();
@@ -47,15 +51,17 @@ public class CICDController {
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
-	@GetMapping("/find-by-id/{id}")
-	ResponseEntity<Object> findDetailsById(@PathVariable("id") String id) {
+	@PostMapping("/find-by-id/{id}")
+	ResponseEntity<Response> findDetailsById(@PathVariable("id") Integer id) {
 		List<Employee> employeeList = Util.getEmployeeList();
-		List<Employee> empLists = employeeList.stream().filter(emp -> emp.getEmployeeId().equals(Integer.parseInt(id)))
+		List<Employee> empLists = employeeList.stream().filter(emp -> emp.getEmployeeId().equals(id))
 				.collect(Collectors.toList());
+		LOG.info(":: find by id ::" + empLists);
 		if (ObjectUtils.isEmpty(empLists)) {
-			return new ResponseEntity<>(new Exception("Sorry! record not found.", "OK", new Date()), HttpStatus.OK);
+			LOG.error(":: inside find by id  ::" +id+" :: there is no record found");
+			return new ResponseEntity<>(new Response("Sorry! record not found ", "OK", new Date(), null), HttpStatus.OK);
 		}
-		return new ResponseEntity<>(empLists, HttpStatus.OK);
+		return new ResponseEntity<>(new Response("Success", "OK", new Date(), empLists), HttpStatus.OK);
 	}
 
 	@PostMapping("/find-all")
