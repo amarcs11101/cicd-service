@@ -26,7 +26,7 @@ public class CICDController {
 		Map<String, String> map = new HashMap<>();
 		map.put("name", "abhishek");
 		map.put("companyName", "Intense technology pvt. ltd");
-		map.put("subject", "creating thr cicd pipeline");
+		map.put("subject", "creating the cicd pipeline");
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 	/* for dummy save*/
@@ -34,7 +34,7 @@ public class CICDController {
 	ResponseEntity<Map<String, String>> saveDetails(@RequestBody Map<String,String> map) { 
 		map.put("name", "abhishek");
 		map.put("companyName", "Intense technology pvt. ltd");
-		map.put("subject", "creating thr cicd pipeline");
+		map.put("subject", "creating the cicd pipeline");
 		map.put("message", "Saved successfully");
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
