@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.in10s.controller;
+package com.in10s;
 
 import java.util.HashMap;
 import java.util.Map;
