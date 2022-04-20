@@ -48,9 +48,9 @@ public class CICDController {
 	@GetMapping("/details")
 	ResponseEntity<Map<String, String>> showDetails() {
 		Map<String, String> map = new HashMap<>();
-		map.put("name", "abhishek");
-		map.put("companyName", "Intense technology pvt. ltd");
-		map.put("subject", "creating the cicd pipeline");
+		map.put("name", "ABHISHEK AMAR");
+		map.put("companyName", "INTENSE TECHNOLOGY PVT. LTD");
+		map.put("subject", "CREATING THE CICD PIPELINE");
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
